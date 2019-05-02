@@ -16,8 +16,8 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+//type Props = {};
+export default class App extends Component {
   _onPressButton() {
     Alert.alert('Tolga gotune koyim!')
   }
