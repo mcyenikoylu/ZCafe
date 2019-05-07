@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, Alert} from 'react-native';
+import firebase from 'firebase';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,8 +20,69 @@ const instructions = Platform.select({
 //type Props = {};
 export default class App extends Component {
   _onPressButton() {
-    Alert.alert('Tolga gotune koyim!')
+    Alert.alert('Tikladin!')
   }
+
+  _onPressInsert() {
+    firebase.database().ref('users/006').set(
+      {
+        name: 'new insert',
+        age: 61
+      }
+    ).then(() => {
+      console.log('INSERTED!');
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+  _onPressUpdate() {
+    firebase.database().ref('users/006').update({
+      name: 'new update'
+    });
+  }
+  _onPressDelete() {
+    firebase.database().ref('users/006/name').remove();
+  }
+
+componentWillMount()  {
+  var config = {
+    apiKey: "AIzaSyDXw8-aQv7vDdaqlpCRiNKd9KBh8WelrNs",
+    authDomain: "zbase-14431.firebaseapp.com",
+    databaseURL: "https://zbase-14431.firebaseio.com",
+    projectId: "zbase-14431",
+    storageBucket: "zbase-14431.appspot.com",
+    messagingSenderId: "883242898464"
+  };
+
+  firebase.initializeApp(config);
+  console.log(firebase);
+
+
+  firebase.database().ref('users').on('value', (data) => {
+    console.log(data.toJSON());
+  })
+  
+// setTimeout(() => {
+//   firebase.database().ref('users/005').set(
+//     {
+//       name: 'vedat',
+//       age: 61
+//     }
+//   ).then(() => {
+//     console.log('INSERTED!');
+//   }).catch((error) => {
+//     console.log(error);
+//   })
+// }, 5000);
+
+    
+ 
+    
+
+  
+
+}
+  
   render() {
     return (
       <View style={styles.container}>
@@ -30,6 +92,21 @@ export default class App extends Component {
         <Button
             onPress={this._onPressButton}
             title="Press Me"
+          />
+
+<Button
+            onPress={this._onPressInsert}
+            title="Insert"
+          />
+
+<Button
+            onPress={this._onPressUpdate}
+            title="Update"
+          />
+
+<Button
+            onPress={this._onPressDelete}
+            title="Delete"
           />
       </View>
     );
