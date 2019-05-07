@@ -21,5 +21,21 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "description": "cafe store app",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcyenikoylu/ZCafe.git"
+  },
+  "keywords": [
+    "mcy",
+    "zcafe"
+  ],
+  "author": "mcy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcyenikoylu/ZCafe/issues"
+  },
+  "homepage": "https://github.com/mcyenikoylu/ZCafe#readme"
 }
