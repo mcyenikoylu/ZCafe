@@ -7,8 +7,9 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Alert} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Alert, TextInput} from 'react-native';
 import firebase from 'firebase';
+import dbconfig from './dbconfig';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,14 +20,20 @@ const instructions = Platform.select({
 
 //type Props = {};
 export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { text: 'Useless Placeholder' };
+  }
+
   _onPressButton() {
-    Alert.alert('Tikladin!')
+    Alert.alert(this.state.text)
   }
 
   _onPressInsert() {
-    firebase.database().ref('users/006').set(
+    firebase.database().ref('users/008').set(
       {
-        name: 'new insert',
+        name: 'new insert ' ,//+ this.state.text,
         age: 61
       }
     ).then(() => {
@@ -45,14 +52,7 @@ export default class App extends Component {
   }
 
 componentWillMount()  {
-  var config = {
-    apiKey: "AIzaSyDXw8-aQv7vDdaqlpCRiNKd9KBh8WelrNs",
-    authDomain: "zbase-14431.firebaseapp.com",
-    databaseURL: "https://zbase-14431.firebaseio.com",
-    projectId: "zbase-14431",
-    storageBucket: "zbase-14431.appspot.com",
-    messagingSenderId: "883242898464"
-  };
+  var config = dbconfig;
 
   firebase.initializeApp(config);
   console.log(firebase);
@@ -94,6 +94,11 @@ componentWillMount()  {
             title="Press Me"
           />
 
+<TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({text})}
+        value={this.state.text}
+      />
 <Button
             onPress={this._onPressInsert}
             title="Insert"
